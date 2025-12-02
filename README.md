@@ -77,7 +77,7 @@ npm run dev
 ```
 
 5. **Open your browser**
-Navigate to [http://localhost:3000](http://localhost:3000)
+Navigate to [http://localhost:3699](http://localhost:3699)
 
 ## 🐳 Docker Deployment
 
@@ -98,7 +98,7 @@ docker-compose up -d
 ```
 
 4. **Access the services**
-- NebulaGateAI UI: http://localhost:3000
+- NebulaGateAI UI: http://localhost:3699
 - Guardrails.AI Server: http://localhost:8000
 - NeMo Guardrails: http://localhost:8001
 
@@ -109,7 +109,7 @@ docker-compose up -d
 docker build -t nebulagate-ai .
 
 # Run the container
-docker run -p 3000:3000 nebulagate-ai
+docker run -p 3699:3699 nebulagate-ai
 ```
 
 ## 📖 Usage Guide
@@ -247,7 +247,7 @@ COHERE_API_KEY=...
 
 # Application
 NODE_ENV=production
-PORT=3000
+PORT=3699
 ```
 
 ## 🤝 Contributing

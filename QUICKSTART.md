@@ -16,7 +16,7 @@ npm install
 npm run dev
 
 # 4. Open browser
-# Navigate to http://localhost:3000
+# Navigate to http://localhost:3699
 ```
 
 That's it! You're ready to configure your guardrails.
@@ -39,7 +39,7 @@ nano .env
 docker-compose up -d
 
 # 5. Access the application
-# UI: http://localhost:3000
+# UI: http://localhost:3699
 # Guardrails.AI: http://localhost:8000
 # NeMo Guardrails: http://localhost:8001
 ```
@@ -123,10 +123,10 @@ ANTHROPIC_API_KEY=sk-ant-...
 
 ## 🆘 Troubleshooting
 
-### Port 3000 already in use
+### Port 3699 already in use
 ```bash
 # Use a different port
-PORT=3001 npm run dev
+PORT=3700 npm run dev
 ```
 
 ### Docker containers not starting

@@ -49,7 +49,7 @@ docker-compose logs -f nebulagate-ui
 ```
 
 5. **Access the application**
-- UI: http://localhost:3000
+- UI: http://localhost:3699
 - Guardrails.AI: http://localhost:8000
 - NeMo Guardrails: http://localhost:8001
 
@@ -61,7 +61,7 @@ docker build -t nebulagate-ai:latest .
 
 # Run the container
 docker run -d \
-  -p 3000:3000 \
+  -p 3699:3699 \
   --name nebulagate-ui \
   nebulagate-ai:latest
 
@@ -81,11 +81,11 @@ services:
     image: nebulagate-ai:latest
     restart: always
     ports:
-      - "3000:3000"
+      - "3699:3699"
     environment:
       - NODE_ENV=production
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD", "curl", "-f", "http://localhost:3699"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -155,7 +155,7 @@ pm2 startup
 ```env
 # Application
 NODE_ENV=production
-PORT=3000
+PORT=3699
 
 # Guardrails.AI
 GUARDRAILS_TOKEN=your_token
@@ -175,7 +175,7 @@ server {
     server_name yourdomain.com;
 
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:3699;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -191,7 +191,7 @@ server {
 
 ```bash
 # Check application health
-curl http://localhost:3000
+curl http://localhost:3699
 
 # Check Docker container health
 docker inspect --format='{{.State.Health.Status}}' nebulagate-ui
@@ -243,8 +243,8 @@ Use Nginx or a cloud load balancer to distribute traffic across multiple instanc
 
 **Port already in use**
 ```bash
-# Find process using port 3000
-lsof -i :3000
+# Find process using port 3699
+lsof -i :3699
 
 # Kill process
 kill -9 <PID>
