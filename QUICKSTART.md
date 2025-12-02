@@ -2,6 +2,8 @@
 
 Get NebulaGateAI up and running in 5 minutes!
 
+> **📘 Need detailed backend setup?** See [SETUP.md](SETUP.md) for complete installation instructions for Guardrails AI, NeMo Guardrails with NemoGuard, and Ollama.
+
 ## 🚀 Option 1: Local Development (Fastest)
 
 ```bash
@@ -146,10 +148,11 @@ docker-compose up -d
 
 ## 📚 Next Steps
 
-1. ✅ Read the full [README.md](README.md)
-2. ✅ Check [DEPLOYMENT.md](DEPLOYMENT.md) for production setup
-3. ✅ Review [CONTRIBUTING.md](CONTRIBUTING.md) to contribute
-4. ✅ Explore the [official documentation](#resources)
+1. ✅ **[SETUP.md](SETUP.md)** - Complete installation guide for backend services
+2. ✅ Read the full [README.md](README.md)
+3. ✅ Check [DEPLOYMENT.md](DEPLOYMENT.md) for production setup
+4. ✅ Review [CONTRIBUTING.md](CONTRIBUTING.md) to contribute
+5. ✅ Explore the [official documentation](#resources)
 
 ## 🔗 Resources
 

@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # NebulaGateAI Frontend
+  # NebulaGateAI Frontend - Web UI for managing Guardrails AI and NeMo Guardrails
   nebulagate-ui:
     build:
       context: .
@@ -11,11 +11,25 @@ services:
       - "3699:3699"
     environment:
       - NODE_ENV=production
+      - GUARDRAILS_HOST=guardrails-server
+      - GUARDRAILS_PORT=8000
+      - NEMO_HOST=nemo-guardrails
+      - NEMO_PORT=8001
+      - OLLAMA_HOST=ollama
+      - OLLAMA_PORT=11434
     restart: unless-stopped
     networks:
       - guardrails-network
+    depends_on:
+      - guardrails-server
+      - nemo-guardrails
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3699"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # Guardrails.AI Server
+  # Guardrails.AI Server - Validator-based guardrails with Hub integration
   guardrails-server:
     image: guardrailsai/guardrails:latest
     container_name: guardrails-server
@@ -27,21 +41,68 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - COHERE_API_KEY=${COHERE_API_KEY}
+    volumes:
+      - guardrails-data:/app/data
     restart: unless-stopped
     networks:
       - guardrails-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # NeMo Guardrails Server
+  # NeMo Guardrails Server - NVIDIA's programmable guardrails with NemoGuard
   nemo-guardrails:
     image: nvcr.io/nvidia/nemo/guardrails:latest
     container_name: nemo-guardrails
     ports:
       - "8001:8001"
+    environment:
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # Enable NemoGuard jailbreak detection
+      - NEMO_JAILBREAK_DETECTION=true
+      # Content safety moderation
+      - NEMO_CONTENT_SAFETY=true
     volumes:
       - ./nemo-config.json:/app/config/config.json:ro
+      - nemo-data:/app/data
     restart: unless-stopped
     networks:
       - guardrails-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/v1/rails/configs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Ollama - Local LLM runtime for privacy-focused deployments
+  # Uncomment this service if you want to run local LLMs
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    networks:
+      - guardrails-network
+    # Uncomment for GPU support (NVIDIA)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   guardrails-network:
@@ -49,4 +110,8 @@ networks:
 
 volumes:
   guardrails-data:
+    driver: local
   nemo-data:
+    driver: local
+  ollama-data:
+    driver: local

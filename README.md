@@ -46,11 +46,17 @@ NebulaGateAI is a modern, user-friendly web interface for managing and configuri
 
 ## 🚀 Quick Start
 
+> **📘 New to NebulaGateAI?** Check out the comprehensive [SETUP.md](SETUP.md) guide for detailed installation instructions for Guardrails AI, NeMo Guardrails (with NemoGuard), and Ollama.
+
 ### Prerequisites
 
 - Node.js 20.x or later
 - npm or yarn
 - Docker (optional, for containerized deployment)
+- **Backend Services** (see [SETUP.md](SETUP.md) for detailed setup):
+  - Guardrails AI (for validator-based guardrails)
+  - NeMo Guardrails with NemoGuard (for jailbreak detection & content safety)
+  - Ollama (optional, for local LLM support)
 
 ### Installation
 
@@ -275,8 +281,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📚 Resources
 
+### Documentation
+- [SETUP.md](SETUP.md) - **Complete setup guide for Guardrails AI, NeMo Guardrails, and Ollama**
+- [QUICKSTART.md](QUICKSTART.md) - Get started in 5 minutes
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Production deployment guide
+- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
+
+### External Resources
 - [Guardrails.AI Documentation](https://docs.guardrailsai.com/)
 - [NeMo Guardrails Documentation](https://docs.nvidia.com/nemo/guardrails/)
+- [Ollama Documentation](https://ollama.com/docs)
 - [Next.js Documentation](https://nextjs.org/docs)
 
 ## 🐛 Bug Reports & Feature Requests
