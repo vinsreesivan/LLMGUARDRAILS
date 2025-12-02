@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # NebulaGateAI Frontend
+  nebulagate-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nebulagate-ui
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - guardrails-network
+
+  # Guardrails.AI Server
+  guardrails-server:
+    image: guardrailsai/guardrails:latest
+    container_name: guardrails-server
+    ports:
+      - "8000:8000"
+    environment:
+      - GUARDRAILS_TOKEN=${GUARDRAILS_TOKEN}
+      - GUARDRAILS_BASE_URL=${GUARDRAILS_BASE_URL:-https://api.guardrailsai.com}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - COHERE_API_KEY=${COHERE_API_KEY}
+    restart: unless-stopped
+    networks:
+      - guardrails-network
+
+  # NeMo Guardrails Server
+  nemo-guardrails:
+    image: nvcr.io/nvidia/nemo/guardrails:latest
+    container_name: nemo-guardrails
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./nemo-config.json:/app/config/config.json:ro
+    restart: unless-stopped
+    networks:
+      - guardrails-network
+
+networks:
+  guardrails-network:
+    driver: bridge
+
+volumes:
+  guardrails-data:
+  nemo-data:

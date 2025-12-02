@@ -1,0 +1,40 @@
+{
+  "models": [
+    {
+      "type": "nim",
+      "engine": "nim",
+      "model": "meta/llama-3.1-8b-instruct",
+      "parameters": {
+        "temperature": 0.7,
+        "maxTokens": 2048,
+        "topP": 1.0
+      },
+      "base_url": "https://integrate.api.nvidia.com/v1"
+    }
+  ],
+  "instructions": [
+    {
+      "type": "general",
+      "content": "You are a helpful AI assistant. Always be respectful and provide accurate information."
+    }
+  ],
+  "rails": {
+    "input": [],
+    "output": [],
+    "retrieval": []
+  },
+  "security": {
+    "jailbreakDetection": true,
+    "contentSafety": true,
+    "topicControl": false
+  },
+  "caching": {
+    "enabled": true,
+    "strategy": "LFU",
+    "maxSize": 1000
+  },
+  "multimodal": {
+    "enabled": false,
+    "supportedFormats": ["image/png", "image/jpeg"]
+  }
+}
