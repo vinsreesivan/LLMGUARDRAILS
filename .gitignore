@@ -42,3 +42,4 @@ next-env.d.ts
 
 # Configs
 *.local.json
+*.backup
