@@ -38,6 +38,11 @@ export interface Validator {
   type: string;
   parameters: Record<string, any>;
   enabled: boolean;
+  category?: string;
+  description?: string;
+  infrastructure?: 'ML' | 'LLM' | 'Rule-based' | 'SQL';
+  useCases?: string[];
+  riskCategories?: string[];
 }
 
 // NeMo Guardrails Configuration Types
